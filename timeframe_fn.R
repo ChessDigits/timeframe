@@ -68,7 +68,27 @@ make_clocks_in_seconds <- function(df)
 }
 
 
-# helper fn: add 
+# helper fn: add increment
+add_increment <- function(df)
+{
+  "
+  input: df
+  output: df with new variable 'increment'
+  "
+  # placeholder
+  df$increment <- df$TimeControl
+  
+  # get inc
+  split_levels <- strsplit(levels(df$increment), split = "+", fixed = TRUE)
+  levels(df$increment) <- sapply(split_levels, \(l) l[2])
+  
+  # make numeric
+  df$increment <- as.numeric(as.character(df$increment))
+  
+  # out
+  return(df)
+}
+
 
 
 # add time_taken variables
@@ -80,7 +100,8 @@ add_time_taken <- function(df)
   # make clocks in seconds
   df <- make_clocks_in_seconds(df)
   
-  # subtract increment
+  # add increment to df
+  df <- add_increment(df)
   
   
   # out
