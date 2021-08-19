@@ -32,14 +32,6 @@ load_data <- function(k_games=c(200,500), use_local_file=TRUE)
 
 #### clocks ####
 
-# create var time_taken
-# class(df$Clock_ply_1)
-# x <- as.character(df$Clock_ply_1)
-# x <- strsplit(x, split=":", fixed = T)
-# x <- lapply(x, as.numeric) 
-# x <- sapply(x, \(t) t[1]*60*60 + t[2]*60 + t[3])
-
-
 # helper fn: make the Clock_ply_ vars into seconds
 make_clocks_in_seconds <- function(df)
 {
@@ -64,6 +56,7 @@ make_clocks_in_seconds <- function(df)
   df[,v] <- times
   
   # out
+  print("Clocks now in seconds")
   return(df)
 }
 
@@ -86,6 +79,7 @@ add_increment <- function(df)
   df$increment <- as.numeric(as.character(df$increment))
   
   # out
+  print("Added column 'increment'")
   return(df)
 }
 
@@ -95,17 +89,35 @@ add_increment <- function(df)
 add_time_taken <- function(df)
 {
   "
-  
+  input: df
+  output: df with time_taken_ vars added; clocks in seconds; var increment added
   "
+  
   # make clocks in seconds
-  df <- make_clocks_in_seconds(df)
+  df <- make_clocks_in_seconds(df) # problem here: this function changes the clocks
   
   # add increment to df
-  df <- add_increment(df)
+  df <- add_increment(df) # problem here: this function adds a column
   
+  # remove inc from clocks where it is added
+  v <- (c <- colnames(df))[substr(c, 1, 10)=="Clock_ply_"]
+  v_inc <- v[-c(1:2)] # plies 1-2 not affected, time doesn't go down or up; the clocks indicate time remaining AFTER each move
+  #df[,v_inc] <- sapply(df[,v_inc], \(t) t-df$increment)
+  
+  # take difference between pairs of plies
+  # could subtract inc here
+  pairs <- sapply(1:(length(v)-2), \(i) c(v[i], v[i+2]))
+  time_taken <- apply(pairs, 2, \(p) df[,p[1]] - df[,p[2]]) # could add inc on this
+  time_taken <- time_taken + df$increment
+  
+  # set col names
+  colnames(time_taken) <- paste0("Time_taken_", c("white", "black"), rep(2:((ncol(time_taken)+2)/2), each=2))
+  
+  # as df and cbind
+  df <- as.data.frame(cbind(df, time_taken))
   
   # out
-  print("")
+  print("Added variables Time_taken_[white, black][move number]")
   return(df)
 }
 
