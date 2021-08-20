@@ -119,7 +119,7 @@ add_time_taken <- function(df)
   # set col names
   # move numbers for now; can change here to use plies instead (with or without player color)
   #colnames(time_taken) <- paste0("Time_taken_", c("white", "black"), rep(2:((ncol(time_taken)+2)/2), each=2))
-  colnames(time_taken) <- paste0("Time_taken_", 3:(ncol(time_taken)+2))
+  colnames(time_taken) <- paste0("Time_taken_ply_", 3:(ncol(time_taken)+2))
   
   # as df and cbind
   df <- as.data.frame(cbind(df, time_taken))
