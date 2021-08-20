@@ -130,6 +130,7 @@ add_time_taken <- function(df)
 
 #### evals ####
 
+# helper fn
 # replace mates with extreme evaluations
 replace_mates_with_extreme_evaluations <- function(df)
 {
@@ -167,6 +168,30 @@ replace_mates_with_extreme_evaluations <- function(df)
 
 # create var eval_change
 
+add_eval_change_at_each_ply <- function(df)
+{
+  "
+  input: df
+  output: df with mate evals replaced with 200/-200; 
+  "
+  # replace mates by extreme evals
+  df <- replace_mates_with_extreme_evaluations(df)
+  
+  # select eval vars
+  v <- grep(pattern = "Eval_ply_", x=colnames(df), value=TRUE)
+  
+  # calculate diff at each ply
+  eval_diffs <- t(apply(df[,v], 1, diff))
+  colnames(eval_diffs) <- paste0("Eval_change_ply_", (1:ncol(eval_diffs))+1)
+  
+  # merge
+  df <- as.data.frame(cbind(df, eval_diffs))
+  
+  # out
+  print("Added columns Eval_change_ply_")
+  return(df)
+  
+}
 
 
 
