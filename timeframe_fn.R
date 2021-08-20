@@ -10,6 +10,7 @@ Functions for article:
 
 #### imports ####
 library(dplyr)
+library(tidyr)
 
 
 #### helper fn ####
@@ -125,7 +126,7 @@ add_time_taken <- function(df)
   df <- as.data.frame(cbind(df, time_taken))
   
   # out
-  print("Added variables Time_taken_[white, black][move number]")
+  print("Added variables Time_taken_ply_[ply]")
   return(df)
 }
 
@@ -174,7 +175,7 @@ add_eval_change_at_each_ply <- function(df)
 {
   "
   input: df
-  output: df with mate evals replaced with 200/-200; 
+  output: df with mate evals replaced with 200/-200; added 'Eval_change_ply_' vars
   "
   # replace mates by extreme evals
   df <- replace_mates_with_extreme_evaluations(df)
@@ -197,7 +198,48 @@ add_eval_change_at_each_ply <- function(df)
 
 
 
+#### analysis datasets ####
 
+# pivot longer to get time_taken and eval_change
+get_one_row_per_ply_with_time_taken_and_eval_change <- function(df)
+{
+  "
+  input: df
+  output: ...
+  "
+  # https://tidyr.tidyverse.org/articles/pivot.html
+  # names_to with vector with names_sep or names_pattern
+  
+  # pivot time taken for each ply
+  df_long_time <- pivot_longer(
+    df %>% select(Site, starts_with("Time_taken_ply_")),
+    cols=starts_with("Time_taken_ply_"),
+    names_to="Ply",
+    names_prefix="Time_taken_ply_",
+    names_transform = list(Ply = as.integer),
+    values_to="Time_taken",
+    values_drop_na = TRUE
+  )
+  
+  # pivot eval change for each ply
+  df_long_eval <- pivot_longer(
+    df %>% select(Site, starts_with("Eval_change_ply_")),
+    cols=starts_with("Eval_change_ply_"),
+    names_to="Ply",
+    names_prefix="Eval_change_ply_",
+    names_transform = list(Ply = as.integer),
+    values_to="Eval_change",
+    values_drop_na = TRUE
+  )
+  
+  # inner join
+  df <- inner_join(df_long_time, df_long_eval)
+  
+  # out
+  print("df now in long format with Ply, Time_taken, and Eval_change variables")
+  return(df)
+  
+}
 
 
 
