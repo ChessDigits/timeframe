@@ -16,4 +16,4 @@ bu <- df # backup
 df <- bu
 df <- add_time_taken(df)
 df <- add_eval_change_at_each_ply(df)
-df <- get_one_row_per_ply_with_time_taken_and_eval_change(df)
+df <- get_one_row_per_ply_with_time_taken_and_eval_change(df, vars_to_keep=c("TimeControl"))

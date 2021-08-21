@@ -201,7 +201,7 @@ add_eval_change_at_each_ply <- function(df)
 #### analysis datasets ####
 
 # pivot longer to get time_taken and eval_change
-get_one_row_per_ply_with_time_taken_and_eval_change <- function(df)
+get_one_row_per_ply_with_time_taken_and_eval_change <- function(df, vars_to_keep=NULL)
 {
   "
   input: df
@@ -212,7 +212,7 @@ get_one_row_per_ply_with_time_taken_and_eval_change <- function(df)
   
   # pivot time taken for each ply
   df_long_time <- pivot_longer(
-    df %>% select(Site, starts_with("Time_taken_ply_")),
+    df %>% select(vars_to_keep, Site, starts_with("Time_taken_ply_")),
     cols=starts_with("Time_taken_ply_"),
     names_to="Ply",
     names_prefix="Time_taken_ply_",
@@ -223,7 +223,7 @@ get_one_row_per_ply_with_time_taken_and_eval_change <- function(df)
   
   # pivot eval change for each ply
   df_long_eval <- pivot_longer(
-    df %>% select(Site, starts_with("Eval_change_ply_")),
+    df %>% select(vars_to_keep, Site, starts_with("Eval_change_ply_")),
     cols=starts_with("Eval_change_ply_"),
     names_to="Ply",
     names_prefix="Eval_change_ply_",
