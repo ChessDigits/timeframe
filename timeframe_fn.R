@@ -131,6 +131,24 @@ add_time_taken <- function(df)
 }
 
 
+# remove negative time taken
+# lag (e.g. -1); added time in losing position (e.g. -1819 in a 10+0 game)
+remove_negative_time_taken <- function(df, replace_value=NA)
+{
+  "input: df with time_taken
+  output: df with negative time takens replaced with replace_value
+  "
+  
+  v <- grep(pattern = "Time_taken_ply_", colnames(df), value = TRUE)
+  df[v][df[v] < 0] <- replace_value
+  
+  # out
+  print(paste0("Replaced negative time taken with ", replace_value))
+  return(df)
+}
+
+
+
 #### evals ####
 
 # helper fn
