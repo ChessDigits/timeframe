@@ -231,7 +231,7 @@ get_one_row_per_ply_with_time_taken_and_eval_change <- function(df, vars_to_keep
   
   # pivot time taken for each ply
   df_long_time <- pivot_longer(
-    df %>% select(vars_to_keep, Site, starts_with("Time_taken_ply_")),
+    df %>% select(all_of(vars_to_keep), Site, starts_with("Time_taken_ply_")),
     cols=starts_with("Time_taken_ply_"),
     names_to="Ply",
     names_prefix="Time_taken_ply_",
@@ -242,7 +242,7 @@ get_one_row_per_ply_with_time_taken_and_eval_change <- function(df, vars_to_keep
   
   # pivot eval change for each ply
   df_long_eval <- pivot_longer(
-    df %>% select(vars_to_keep, Site, starts_with("Eval_change_ply_")),
+    df %>% select(all_of(vars_to_keep), Site, starts_with("Eval_change_ply_")),
     cols=starts_with("Eval_change_ply_"),
     names_to="Ply",
     names_prefix="Eval_change_ply_",
