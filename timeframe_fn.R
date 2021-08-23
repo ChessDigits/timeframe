@@ -298,4 +298,22 @@ get_plot_blunder_by_time_taken <- function(df)
 
 #### analyses ####
 
+get_mlm_blunder_by_time_taken <- function(df, scale_time_within_each_game=TRUE)
+{
+  "
+  input: df long
+  output: glmer object
+  "
+
+  ana <- glmer(blunder ~ Time_taken + (1|Site), family="binomial", 
+                data=df %>% 
+                  filter(TimeControl == "600+0") %>% 
+                  mutate(blunder = abs(Eval_change) >= 3) %>% 
+                  { if (scale_time_within_each_game) group_by(., Site) else . } %>% 
+                  mutate(Time_taken = as.numeric(scale(Time_taken)))
+                )
+  return(ana)
+}
+
+
 

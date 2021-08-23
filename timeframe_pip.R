@@ -22,26 +22,8 @@ df <- get_one_row_per_ply_with_time_taken_and_eval_change(df, vars_to_keep=c("Ti
 get_plot_eval_change_by_time_taken(df)
 get_plot_blunder_by_time_taken(df)
 
-
-
-ana <- glmer(blunder ~ Time_taken + (1|Site), family="binomial", 
-                   data=df %>% 
-                     filter(TimeControl == "600+0") %>% 
-                     mutate(blunder = abs(Eval_change) >= 3) %>% 
-                     mutate(Time_taken = as.numeric(scale(Time_taken))) # could scale within games! (i.e. Site); group_by & ungroup
-)
+ana <- get_mlm_blunder_by_time_taken(df, scale_time_within_each_game=TRUE)
 summary(ana)
-
-
-ana2 <- glmer(blunder ~ Time_taken + (1|Site), family="binomial", 
-                   data=df %>% 
-                     filter(TimeControl == "600+0") %>% 
-                     mutate(blunder = abs(Eval_change) >= 3) %>% 
-                     group_by(Site) %>% 
-                     mutate(Time_taken = as.numeric(scale(Time_taken))) %>% 
-                     ungroup()
-)
-summary(ana2)
 
 # icc might be interesting here
 
