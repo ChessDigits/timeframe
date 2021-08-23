@@ -20,9 +20,9 @@ df <- add_eval_change_at_each_ply(df)
 df <- get_one_row_per_ply_with_time_taken_and_eval_change(df, vars_to_keep=c("TimeControl"))
 
 get_plot_eval_change_by_time_taken(df)
-get_plot_blunder_by_time_taken(df)
+get_plot_blunder_by_time_taken(df, min_eval_change_for_blunder=3)
 
-ana <- get_mlm_blunder_by_time_taken(df, scale_time_within_each_game=TRUE)
+ana <- get_mlm_blunder_by_time_taken(df, min_eval_change_for_blunder=3, scale_time_within_each_game=TRUE)
 summary(ana)
 
 # icc might be interesting here

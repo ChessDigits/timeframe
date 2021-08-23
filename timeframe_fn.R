@@ -275,7 +275,7 @@ get_plot_eval_change_by_time_taken <- function(df)
   return(p)
 }
 
-get_plot_blunder_by_time_taken <- function(df)
+get_plot_blunder_by_time_taken <- function(df, min_eval_change_for_blunder=3)
 {
   "
   input: df long
@@ -285,7 +285,7 @@ get_plot_blunder_by_time_taken <- function(df)
   p <- df %>%
     filter(TimeControl == "600+0") %>% 
     slice_sample(n=10000) %>% 
-    mutate(blunder = abs(Eval_change) >= 3) %>%
+    mutate(blunder = abs(Eval_change) >= min_eval_change_for_blunder) %>%
     ggplot(aes(x=blunder, y=Time_taken)) + geom_boxplot()
   return(p)
 }
@@ -298,7 +298,7 @@ get_plot_blunder_by_time_taken <- function(df)
 
 #### analyses ####
 
-get_mlm_blunder_by_time_taken <- function(df, scale_time_within_each_game=TRUE)
+get_mlm_blunder_by_time_taken <- function(df, min_eval_change_for_blunder=3, scale_time_within_each_game=TRUE)
 {
   "
   input: df long
@@ -308,7 +308,7 @@ get_mlm_blunder_by_time_taken <- function(df, scale_time_within_each_game=TRUE)
   ana <- glmer(blunder ~ Time_taken + (1|Site), family="binomial", 
                 data=df %>% 
                   filter(TimeControl == "600+0") %>% 
-                  mutate(blunder = abs(Eval_change) >= 3) %>% 
+                  mutate(blunder = abs(Eval_change) >= min_eval_change_for_blunder) %>% 
                   { if (scale_time_within_each_game) group_by(., Site) else . } %>% 
                   mutate(Time_taken = as.numeric(scale(Time_taken)))
                 )
