@@ -12,6 +12,7 @@ Functions for article:
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(lme4)
 
 
 #### helper fn ####
@@ -263,6 +264,35 @@ get_one_row_per_ply_with_time_taken_and_eval_change <- function(df, vars_to_keep
 
 
 #### plots ####
+get_plot_eval_change_by_time_taken <- function(df)
+{
+  "
+  input: df long
+  ouput: plot
+  "
+  p <- ggplot(df %>% filter(TimeControl == "180+0") %>% slice_sample(n=10000), aes(x=Time_taken, y=Eval_change)) +
+    geom_jitter()
+  return(p)
+}
+
+get_plot_blunder_by_time_taken <- function(df)
+{
+  "
+  input: df long
+  output: plot
+  "
+  
+  p <- df %>%
+    filter(TimeControl == "600+0") %>% 
+    slice_sample(n=10000) %>% 
+    mutate(blunder = abs(Eval_change) >= 3) %>%
+    ggplot(aes(x=blunder, y=Time_taken)) + geom_boxplot()
+  return(p)
+}
+
+
+
+
 
 
 

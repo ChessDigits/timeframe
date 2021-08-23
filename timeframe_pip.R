@@ -19,20 +19,12 @@ df <- remove_negative_time_taken(df, replace_value = NA)
 df <- add_eval_change_at_each_ply(df)
 df <- get_one_row_per_ply_with_time_taken_and_eval_change(df, vars_to_keep=c("TimeControl"))
 
+get_plot_eval_change_by_time_taken(df)
+get_plot_blunder_by_time_taken(df)
 
-ggplot(df %>% filter(TimeControl == "180+0") %>% slice_sample(n=10000), aes(x=Time_taken, y=Eval_change)) +
-  geom_jitter()
 
 
-df %>%
-  filter(TimeControl == "600+0") %>% 
-  slice_sample(n=10000) %>% 
-  mutate(blunder = abs(Eval_change) >= 3) %>%
-  ggplot(aes(x=blunder, y=Time_taken)) + geom_boxplot()
-
-#lmer() to get sig. test
-
-ana <- lme4::glmer(blunder ~ Time_taken + (1|Site), family="binomial", 
+ana <- glmer(blunder ~ Time_taken + (1|Site), family="binomial", 
                    data=df %>% 
                      filter(TimeControl == "600+0") %>% 
                      mutate(blunder = abs(Eval_change) >= 3) %>% 
@@ -41,7 +33,7 @@ ana <- lme4::glmer(blunder ~ Time_taken + (1|Site), family="binomial",
 summary(ana)
 
 
-ana2 <- lme4::glmer(blunder ~ Time_taken + (1|Site), family="binomial", 
+ana2 <- glmer(blunder ~ Time_taken + (1|Site), family="binomial", 
                    data=df %>% 
                      filter(TimeControl == "600+0") %>% 
                      mutate(blunder = abs(Eval_change) >= 3) %>% 
