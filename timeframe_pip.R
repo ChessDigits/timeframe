@@ -10,6 +10,7 @@ Pipelines for article:
 
 #### long think bad think ####
 
+source("timeframe_fn.R")
 df <- load_data(k_games = 200, use_local_file = TRUE)
 df <- slice_sample(df, n = 10000)
 bu <- df # backup
