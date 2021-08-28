@@ -53,6 +53,9 @@ hist(r, breaks=50)
 (t <- table(r>0))/sum(t) # about 80% > 0
 
 # scatterplot time taken
-tt_all_games <- as.data.frame(do.call(rbind, tt))
-ggplot(tt_all_games %>% slice_sample(n=10000), aes(x=dw, y=db)) + geom_point() + xlim(c(0,100)) + ylim(c(0,100))
+tt_all_games <- as.data.frame(do.call(rbind, tt)) # one df 2 columns
+ggplot(tt_all_games %>% slice_sample(n=10000), aes(x=dw, y=db)) + 
+  geom_jitter() + 
+  xlim(c(0,50)) + ylim(c(0,50)) + 
+  geom_smooth()
 
