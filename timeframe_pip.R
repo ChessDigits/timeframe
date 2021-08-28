@@ -47,7 +47,9 @@ df <- add_time_taken(df)
 df <- remove_negative_time_taken(df, replace_value = NA)
 
 # ts
-tt <- get_list_time_series_for_time_taken_for_each_game(df, n_games = 100) # time taken
-lapply(tt, cor)
+tt <- get_list_time_series_for_time_taken_for_each_game(df, n_games = nrow(df)) # time taken
+r <- sapply(tt, \(m) cor(m[,1], m[,2]))
+hist(r, breaks=50)
+(t <- table(r>0))/sum(t) # about 80% > 0
 
 
