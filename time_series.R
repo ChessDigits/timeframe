@@ -17,3 +17,15 @@ plot(dw, db)
 dw_dl <- diff(log(dw))
 db_dl <- diff(log(db))
 ts.plot(cbind(dw_dl, db_dl))
+plot(dw_dl, db_dl)
+
+
+# cor
+cor(dw, db) # <0
+dl <- list(dw_dl, db_dl)
+# replace ±Inf with extreme value
+dl <- lapply(dl, \(t) { t[is.infinite(t)] <- NA; t})
+cor(dl[[1]], dl[[2]], use="pairwise") # <0
+
+# distribution of correlations/acf across games
+# posterior distro bayesian style
