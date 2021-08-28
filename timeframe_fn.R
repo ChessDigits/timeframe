@@ -317,3 +317,43 @@ get_mlm_blunder_by_time_taken <- function(df, min_eval_change_for_blunder=3, sca
 
 
 
+#### time series ####
+
+# create list of pairs of time series for time taken
+get_list_time_series_for_time_taken_for_each_game <- function(df, n_games=NULL)
+{
+  # set up number of games
+  if(is.null(n_games)) n_games <- nrow(df)
+  
+  # get list
+  time_series <- list()
+  for (i in 1:n_games)
+  {
+    # use time taken vars
+    v <- paste0("Time_taken_ply_", 3:200)
+    
+    # do white and black for a single game
+    dw <- (dw<-df[i,v[seq(1, length(v), by=2)]])[!is.na(dw)] # white
+    db <- (db<-df[i,v[seq(2, length(v), by=2)]])[!is.na(db)] # black
+    
+    # make equal length
+    l <- min(length(dw), length(db))
+    dw <- dw[1:l]; db <- db[1:l]
+    
+    # add to list
+    time_series[[i]] <- cbind(dw, db)
+  }
+  
+  # out
+  return(time_series)
+}
+
+
+
+
+
+
+
+
+
+
