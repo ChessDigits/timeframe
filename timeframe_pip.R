@@ -18,11 +18,14 @@ df <- bu
 df <- add_time_taken(df)
 df <- remove_negative_time_taken(df, replace_value = NA)
 df <- add_eval_change_at_each_ply(df)
+# pivot
 df <- get_one_row_per_ply_with_time_taken_and_eval_change(df, vars_to_keep=c("TimeControl"))
 
+# plots
 get_plot_eval_change_by_time_taken(df)
 get_plot_blunder_by_time_taken(df, min_eval_change_for_blunder=3)
 
+# statistical tests
 ana <- get_mlm_blunder_by_time_taken(df, min_eval_change_for_blunder=3, scale_time_within_each_game=TRUE)
 summary(ana)
 
