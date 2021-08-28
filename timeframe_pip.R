@@ -10,6 +10,7 @@ Pipelines for article:
 
 #### long think bad think ####
 
+rm(list=ls())
 source("timeframe_fn.R")
 df <- load_data(k_games = 200, use_local_file = TRUE, dir="")
 df <- slice_sample(df, n = 10000)
@@ -30,5 +31,23 @@ ana <- get_mlm_blunder_by_time_taken(df, min_eval_change_for_blunder=3, scale_ti
 summary(ana)
 
 # icc might be interesting here
+
+
+
+
+#### time series ####
+
+rm(list=ls())
+source("timeframe_fn.R")
+df <- load_data(k_games = 200, use_local_file = TRUE, dir="")
+df <- slice_sample(df, n = 10000)
+bu <- df # backup
+df <- bu
+df <- add_time_taken(df)
+df <- remove_negative_time_taken(df, replace_value = NA)
+
+# ts
+tt <- get_list_time_series_for_time_taken_for_each_game(df, n_games = 100) # time taken
+lapply(tt, cor)
 
 
