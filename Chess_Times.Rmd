@@ -16,7 +16,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-```{r pip, echo=FALSE}
+```{r pip, echo=FALSE, message=FALSE, include=FALSE}
 source("timeframe_fn.R")
 df <- load_data(k_games = 200, use_local_file = TRUE, dir="")
 #df <- filter(df, abs(WhiteElo - BlackElo) <= 200)
@@ -40,9 +40,11 @@ I have noticed that players tend to match each other's pace: when one player pla
 hist(r, breaks=50, main="Correlation between time taken by White and Black at each move", sub="Based on 10k games (Source: ChessDigits.com)", xlab = "Correlation (Pearson's r)", ylab="Number of Chess Games")
 ```
 </center>
-As shown above, in about 80% of the games, **there is a positive correlation between time spent by White and Black**, a sign of synchrony between the players. In other words, in most online chess games, when one player takes more time than that game's average, so does the other player.
 
-### Data & Code
+
+<p />As shown above, in about 80% of the games, **there is a positive correlation between time spent by White and Black**, a sign of synchrony between the players. In other words, in most online chess games, when one player takes more time than that game's average, so does the other player.
+
+## Data & Code
 
 You can [download the 200K data](https://web.chessdigits.com/data) from the Chess Digits *Data* page. The code used to process the data and produce the graph is available on the [Chess Digits GitHub](https://github.com/ChessDigits/timeframe).
 
