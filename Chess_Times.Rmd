@@ -34,11 +34,9 @@ In chess, White and Black each play a move one after the other, alternating unti
 
 I have noticed that players tend to match each other's pace: when one player plays fast, the other player also tends to play fast; when one player slows down, so does the other one. To examine this synchrony, I used 10,000 online games, and calculated **the correlation between time spent at each move by White and Black**. This yielded 10,000 correlation coefficients:
 
-<center>
 ```{r hist, echo=FALSE}
 hist(r, breaks=50, main="Correlation between time taken by White and Black at each move", sub="Based on 10k games (Source: ChessDigits.com)", xlab = "Correlation (Pearson's r)", ylab="Number of Chess Games")
 ```
-</center>
 
 <p />As shown above, in about 80% of the games, **there is a positive correlation between time spent by White and Black**, a sign of synchrony between the players. In other words, in most online chess games, when one player takes more time than that game's average, so does the other player.
 
