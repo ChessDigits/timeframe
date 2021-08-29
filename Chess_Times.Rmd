@@ -1,9 +1,10 @@
 ---
 title: "Time Taken for Chess Moves"
-author: "Patrick Coulombe, PhD <patrick@chessdigits.com>"
+author: "Patrick Coulombe, PhD (patrick@chessdigits.com)"
 organization: "D22"
 date: "Last edited `r format(Sys.time(), '%B %d, %Y')`"
 output: 
+  html_notebook: default
   html_document:
     toc: true
     toc_float: true
@@ -38,13 +39,11 @@ I have noticed that players tend to match each other's pace: when one player pla
 hist(r, breaks=50, main="Correlation between time taken by White and Black at each move", sub="Based on 10k games (Source: ChessDigits.com)", xlab = "Correlation (Pearson's r)", ylab="Number of Chess Games")
 ```
 
-<p />As shown above, in about 80% of the games, **there is a positive correlation between time spent by White and Black**, a sign of synchrony between the players. In other words, in most online chess games, when one player takes more time than that game's average, so does the other player.
+As shown above, in about 80% of the games, **there is a positive correlation between time spent by White and Black**, a sign of synchrony between the players. In other words, in most online chess games, when one player takes more time than that game's average, so does the other player.
 
 ## Data & Code
 
 You can [download the 200K data](https://web.chessdigits.com/data) from the Chess Digits *Data* page. The code used to process the data and produce the graph is available on the [Chess Digits GitHub](https://github.com/ChessDigits/timeframe).
 
-<center>
-<a href="https://www.chessdigits.com"><img alt="Chess Digits" src="https://i.imgur.com/3lqw2yo.png" height='20%' width='20%'/></a>
-<a href="https://github.com/ChessDigits/timeframe"><img alt="Chess Digits GitHub" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" height='20%' width='20%'/></a>
-</center>
+[![Chess Digits](https://i.imgur.com/3lqw2yo.png){width=200px}](https://www.chessdigits.com)
+[![Chess Digits GitHub](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png){width=200px}](https://github.com/ChessDigits/timeframe)
