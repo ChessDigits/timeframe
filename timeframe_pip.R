@@ -40,6 +40,7 @@ summary(ana)
 rm(list=ls())
 source("timeframe_fn.R")
 df <- load_data(k_games = 200, use_local_file = TRUE, dir="")
+#df <- filter(df, abs(WhiteElo - BlackElo) <= 200)
 df <- slice_sample(df, n = 10000)
 bu <- df # backup
 df <- bu
