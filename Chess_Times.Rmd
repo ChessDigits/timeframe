@@ -4,11 +4,11 @@ author: "Patrick Coulombe, PhD <patrick@chessdigits.com>"
 organization: "D22"
 date: "Last edited `r format(Sys.time(), '%B %d, %Y')`"
 output: 
-  html_notebook:
   html_document:
     toc: true
     toc_float: true
     toc_depth: 3
+  html_notebook: default
 ---
 
 
@@ -16,7 +16,20 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+```{r pip, echo=FALSE}
+source("timeframe_fn.R")
+df <- load_data(k_games = 200, use_local_file = TRUE, dir="")
+#df <- filter(df, abs(WhiteElo - BlackElo) <= 200)
+df <- slice_sample(df, n = 10000)
+bu <- df # backup
+df <- bu
+df <- add_time_taken(df)
+df <- remove_negative_time_taken(df, replace_value = NA)
 
+# ts
+tt <- get_list_time_series_for_time_taken_for_each_game(df, n_games = nrow(df)) # time taken
+r <- sapply(tt, \(m) cor(m[,1], m[,2]))
+```
 
 ## Synchrony Between Players
 
