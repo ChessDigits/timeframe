@@ -45,5 +45,5 @@ As shown above, in about 80% of the games, **there is a positive correlation bet
 
 You can [download the 200K data](https://web.chessdigits.com/data) from the Chess Digits *Data* page. The code used to process the data and produce the graph is available on the [Chess Digits GitHub](https://github.com/ChessDigits/timeframe).
 
-[![Chess Digits](https://i.imgur.com/3lqw2yo.png){width=200px}](https://www.chessdigits.com)
-[![Chess Digits GitHub](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png){width=200px}](https://github.com/ChessDigits/timeframe)
+[![Chess Digits](https://i.imgur.com/vH2ykFU.png)](https://www.chessdigits.com)
+[![Chess Digits GitHub](https://i.imgur.com/kDrGrBN.png)](https://github.com/ChessDigits/timeframe)
