@@ -1,16 +1,6 @@
----
-title: "Time Taken for Chess Moves"
-author: "Patrick Coulombe, PhD (patrick@chessdigits.com)"
-organization: "D22"
-date: "Last edited `r format(Sys.time(), '%B %d, %Y')`"
-output: 
-  html_notebook: default
-  html_document:
-    toc: true
-    toc_float: true
-    toc_depth: 3
----
-
+# Time Taken for Chess Moves
+**By Patrick Coulombe, PhD (patrick@chessdigits.com)**  
+**Last edited `r format(Sys.time(), '%B %d, %Y')`**
 
 
 ```{r setup, include=FALSE}
