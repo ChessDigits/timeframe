@@ -51,6 +51,11 @@ tt <- get_list_time_series_for_time_taken_for_each_game(df, n_games = nrow(df)) 
 r <- sapply(tt, \(m) cor(m[,1], m[,2]))
 hist(r, breaks=50)
 (t <- table(r>0))/sum(t) # about 80% > 0
+summary(r)
+
+# could look at min, max, sd, etc. (instead of just r)
+# compare the two ts on ~
+# could restrict to a certain time control and correl across games (e.g. each game gets white and black max/sd/etc., and correl)
 
 # scatterplot time taken
 tt_all_games <- as.data.frame(do.call(rbind, tt)) # one df 2 columns
@@ -58,4 +63,13 @@ ggplot(tt_all_games %>% slice_sample(n=10000), aes(x=dw, y=db)) +
   geom_jitter() + 
   xlim(c(0,50)) + ylim(c(0,50)) + 
   geom_smooth()
+
+
+# tt and eval (e.g. changes in eval)
+
+# moving average
+
+
+
+
 
