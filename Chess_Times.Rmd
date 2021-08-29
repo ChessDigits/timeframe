@@ -1,6 +1,6 @@
 ---
 title: "Time Taken for Chess Moves"
-author: "Patrick Coulombe, PhD"
+author: "Patrick Coulombe, PhD <patrick@chessdigits.com>"
 organization: "D22"
 date: "Last edited `r format(Sys.time(), '%B %d, %Y')`"
 output: 
@@ -18,3 +18,14 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
+## Synchrony Between Players
+
+In chess, White and Black each play a move one after the other, alternating until the end of the game. In both over-the-board (OTB) and online games, players typically have a limited amount of time to play their moves.
+
+Players typically spend less time in simple positions, and more time on more complex positions. 
+
+
+```{r, echo=FALSE}
+hist(r, breaks=50, main="Correlation between time taken by White and Black at each move", sub="Based on 10k games (Source: ChessDigits.com)", xlab = "Correlation (Pearson's r)", ylab="Number of Chess Games")
+```
+### More Info
