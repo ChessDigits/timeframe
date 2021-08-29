@@ -1,8 +1,14 @@
 ---
 title: "Time Taken for Chess Moves"
 author: "Patrick Coulombe, PhD"
-date: "29/08/2021"
-output: html_notebook
+organization: "D22"
+date: "Last edited `r format(Sys.time(), '%B %d, %Y')`"
+output: 
+  html_notebook:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
 ---
 
 
