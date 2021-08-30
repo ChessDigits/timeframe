@@ -27,6 +27,7 @@ I have noticed that players tend to match each other's pace: when one player pla
 
 ```{r hist, echo=FALSE}
 hist(r, breaks=50, main="Correlation between time taken by White and Black at each move", sub="Based on 10k games (Source: ChessDigits.com)", xlab = "Correlation (Pearson's r)", ylab="Number of Chess Games")
+abline(v=0, lty=2, lwd=3, col="black")
 ```
 
 As shown above, in about 80% of the games, **there is a positive correlation between time spent by White and Black**, a sign of synchrony between the players. In other words, in most online chess games, when one player takes more time than that game's average, so does the other player.
