@@ -49,6 +49,9 @@ df <- remove_negative_time_taken(df, replace_value = NA)
 
 # ts
 tt <- get_list_time_series_for_time_taken_for_each_game(df, n_games = nrow(df)) # time taken
+
+
+# histogram
 r <- sapply(tt, \(m) cor(m[,1], m[,2]))
 hist(r, breaks=50)
 (t <- table(r>0))/sum(t) # about 80% > 0
@@ -70,6 +73,13 @@ ggplot(tt_all_games %>% slice_sample(n=10000), aes(x=dw, y=db)) +
 
 # moving average
 
+
+# acf: lag 1 (one player after the other), lag 2 (among players themselves)
+a <- get_df_acf_lags(tt)
+ggplot(a, aes(x=Lag1)) + geom_histogram() + geom_vline(xintercept = 0, linetype="dashed", size=1.5) + xlim(c(-1,1))
+ggplot(a, aes(x=Lag2)) + geom_histogram() + geom_vline(xintercept = 0, linetype="dashed", size=1.5) + xlim(c(-1,1))
+(t <- table(a$Lag1>0))/sum(t) # 76%
+(t <- table(a$Lag2>0))/sum(t) # 77%
 
 
 
